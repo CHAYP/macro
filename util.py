@@ -10,39 +10,46 @@ def sleep(mi, ma):
     time.sleep(mi+dif)
 
 def pnr(key):
+    print('pnr', key)
     keyboard.press(key)
     sleep(0.05, 0.1)
     keyboard.release(key)
 
 def press(key):
+    print('press', key)
     keyboard.press(key)
 
 def release(key):
+    print('release', key)
     keyboard.press(key)
-
-def macro(arr):
-    for key in arr:
-        pnr(key)
-        sleep(0.15, 0.2)
 
 def jump_attack(key, n=1, delay=0, dir=False):
     if dir:
-        keyboard.press(dir)
+        press(dir)
     for i in range(n):
         pnr(Key.space)
         sleep(0.1,0.15)
     if dir:
-        keyboard.release(dir)
+        release(dir)
     pnr(key)
     sleep(delay,delay)
 
-def create_intervals(arr):
-    return [[i[0], i[1], False] for i in arr]
+class Interval:
+    def __init__(self, inputs, limit=0):
+        self.limit = limit
+        self.inputs = [[key, cd, stamp, delay] for [key, cd, stamp, delay] in inputs]
 
-def do_update_intervals(arr):
-    now = datetime.now()
-    for i in range(len(arr)):
-        key, cd, ts = arr[i]
-        if ts == False or (now-ts).seconds > cd:
-            pnr(key)
-            arr[i][2] = now
+    def do(self):
+        cnt = 0
+        i = 0
+        now = datetime.now()
+
+        for [key, cd, stamp, delay] in self.inputs:
+            if not isinstance(stamp, datetime) or (now-stamp).seconds > cd:
+                pnr(key)
+                sleep(delay, delay+0.05)
+                self.inputs[i][2] = now
+                cnt+=1
+                if self.limit > 0 and cnt >= self.limit:
+                    return
+            i+=1
