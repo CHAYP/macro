@@ -5,11 +5,11 @@ from pynput.keyboard import Key
 import util
 
 if __name__ == '__main__':
-    # print('Start in')
-    # cd = 5
-    # for i in range(cd):
-    #     print(5-i)
-    #     time.sleep(1)
+    print('Start in')
+    cd = 5
+    for i in range(cd):
+        print(5-i)
+        time.sleep(1)
 
     # constant
     dir_1, dir_2 = [Key.left, Key.right]
