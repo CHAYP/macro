@@ -24,8 +24,8 @@ if __name__ == '__main__':
     ])
 
     moves = util.Interval([
-        ['a', 1*60, start_time, 1], # up skill
-        ['q', 1*60, start_time, 1], # aoe skill
+        ['s', 0.2*60, start_time, 1], # up skill
+        ['q', 0.7*60, start_time, 1], # aoe skill
     ], 1)
 
     for i in range(300):
@@ -41,23 +41,23 @@ if __name__ == '__main__':
             # before basic loop
 
             # basic loop
-            util.jump_attack('f',2,0.2)
+            util.jump_attack('f', 2, 0.7)
 
             # after basic loop
         
         util.release(dir_1)
 
         # before end round
-        # p = random.random()
-        # if p >= 0.95:
-        #     for k in random.sample(
-        #         random_pool, 
-        #         k=random.randint(1, len(random_pool))
-        #     ):
-        #         util.pnr(k)
+        p = random.random()
+        if p >= 0.90:
+            for k in random.sample(
+                random_pool, 
+                k=random.randint(1, len(random_pool))
+            ):
+                util.pnr(k)
 
         # after end round
-        util.sleep(0.5, 1)
+        util.sleep(1, 1)
         dir_1, dir_2 = dir_2, dir_1
         util.pnr(dir_1)
         moves.do()
