@@ -15,17 +15,20 @@ if __name__ == '__main__':
     dir_1, dir_2 = [Key.left, Key.right]
     start_time = datetime.now()
 
-    n = 3
+    n = 4
     random_pool = [Key.down, 'i', ',', 'k']
     buffs = util.Interval([
         [Key.f9, 5*60, start_time, 0], # pet food
-        ['3', 3*60, False, 1], # xenon buff
+        [Key.ctrl_l, 0.5*60, start_time, 0], # mp potion
+        ['1', 4*60, False, 1], # buff
         [Key.f3, 15*60, False, 0], # maple warrior
     ])
 
     moves = util.Interval([
         ['s', 0.2*60, start_time, 1], # up skill
-        ['q', 0.7*60, start_time, 1], # aoe skill
+        ['d', 0.3*60, start_time, 1], # up skill
+        ['w', 1*60, start_time, 1], # up skill
+        # ['q', 0.7*60, start_time, 1], # aoe skill
     ], 1)
 
     for i in range(300):
@@ -41,7 +44,10 @@ if __name__ == '__main__':
             # before basic loop
 
             # basic loop
-            util.jump_attack('f', 2, 0.7)
+            util.press('q')
+            util.jump_attack('f', 2, 0.3)
+            util.release('q')
+            util.sleep(1,1)
 
             # after basic loop
         
