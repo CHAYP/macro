@@ -16,7 +16,15 @@ if __name__ == '__main__':
     start_time = datetime.now()
 
     n = 4
-    random_pool = [Key.down, 'i', ',', 'k']
+    random_pool = [
+        Key.down,
+        Key.space,
+         'u',
+         'i',
+         'j',
+         ',',
+         'k'
+        ]
     buffs = util.Interval([
         [Key.f9, 5*60, start_time, 0], # pet food
         [Key.ctrl_l, 0.5*60, start_time, 0], # mp potion
