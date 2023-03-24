@@ -10,10 +10,11 @@ def sleep(mi, ma):
     time.sleep(mi+dif)
 
 def pnr(key, mi=0.05, ma=0.1):
-    # print('pnr', key)
+    # print('p', key)
     keyboard.press(key)
     sleep(mi, ma)
     keyboard.release(key)
+    # print('r', key)
 
 def press(key):
     # print('press', key)
@@ -33,6 +34,15 @@ def jump_attack(key, n=1, delay=0, dir=False):
         release(dir)
     pnr(key)
     sleep(delay, delay)
+
+def up_jump(key=Key.up):
+    keyboard.press(key)
+    sleep(0.1,0.15)
+    pnr(Key.space)
+    sleep(0.1,0.15)
+    pnr(Key.space)
+    sleep(0.1,0.15)
+    keyboard.release(key)
 
 class Interval:
     def __init__(self, inputs, limit=0):
