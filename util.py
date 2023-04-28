@@ -1,9 +1,15 @@
 import time
 import random
+import signal
+import os
+
 from datetime import datetime, timedelta
 from pynput.keyboard import Key, Controller
+from pynput.mouse import Listener
 
 keyboard = Controller()
+
+press_list = {}
 
 def sleep(mi, ma):
     dif = (ma-mi)*random.random()
@@ -19,10 +25,16 @@ def pnr(key, mi=0.05, ma=0.1):
 def press(key):
     # print('press', key)
     keyboard.press(key)
+    press_list[key] = True
 
 def release(key):
     # print('release', key)
     keyboard.release(key)
+    del press_list[key]
+
+def clear_press():
+    for key in press_list:
+        keyboard.release(key)
 
 def jump_attack(key, n=1, delay=0, dir=False):
     if dir:
@@ -44,6 +56,9 @@ def up_jump(key=Key.up):
     sleep(0.1,0.15)
     keyboard.release(key)
 
+def withProb(p=0.5):
+    return random.random() <= p
+
 class Interval:
     def __init__(self, inputs, limit=0):
         self.limit = limit
@@ -63,3 +78,10 @@ class Interval:
                 if self.limit > 0 and cnt >= self.limit:
                     return
             i+=1
+
+def on_move(x, y):
+    if x < 0 or y < 0:
+        clear_press()
+        os.kill(os.getpid(), signal.SIGINT)
+
+Listener(on_move=on_move).start()
