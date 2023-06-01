@@ -85,3 +85,4 @@ def on_move(x, y):
         os.kill(os.getpid(), signal.SIGINT)
 
 Listener(on_move=on_move).start()
+print('listen mouse')
